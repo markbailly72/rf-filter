@@ -1,42 +1,48 @@
-const {app, BrowserWindow} = require('electron');
-var fs = require('fs');
-//var ipcMain = require('electron').ipcMain;
+// Modules to control application life and create native browser window
+const {app, dialog, BrowserWindow, Menu, ipcMain} = require('electron')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win
-global.designSaved = {prop:true};
-console.log('Running Electron Version: '+process.versions.electron);
+let mainWindow
+
 function createWindow () {
   // Create the browser window.
- // win = new BrowserWindow({width: 800, height: 600})
-win = new BrowserWindow()
-win.maximize();
-
+  mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 800,
+    webPreferences: {
+      nodeIntegration: true
+    },
+    show: false
+  })
+//  mainWindow.setMenu(null);
+  var menu = Menu.buildFromTemplate([
+      {
+          label: 'RF Filter',
+          submenu: [
+              {label:'Exit', click() {app.quit()}}
+          ]
+      },
+  ])
+  Menu.setApplicationMenu(menu);
   // and load the index.html of the app.
-  win.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.maximize();
+  })
+  mainWindow.loadFile('index.html');
+//  mainWindow.loadFile('splash.html');
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
-  win.on('closed', () => {
+  mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    win = null
+    mainWindow = null
   })
-  win.on('close', function(e){
-   /* var choice = require('electron').dialog.showMessageBox(this,
-        {
-          type: 'question',
-          buttons: ['Yes', 'No'],
-          title: 'Confirm',
-          message: 'Are you sure you want to quit?'
-       });
-       if(choice == 1){
-         e.preventDefault();
-       }*/
-  });
 }
 
 // This method will be called when Electron has finished
@@ -45,26 +51,21 @@ win.maximize();
 app.on('ready', createWindow)
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
+app.on('window-all-closed', function () {
+  // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
+app.on('activate', function () {
+  // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (win === null) {
+  if (mainWindow === null) {
     createWindow()
   }
 })
 
-app.on('ready', function() {
-    const {dialog} = require('electron');
-    //console.log(dialog.showOpenDialog({properties: ["openFile"]}));
-});
-app.on('browser-window-created',function(e,window) {
-      window.setMenu(null);
-  });
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.

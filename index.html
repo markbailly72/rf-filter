@@ -4,11 +4,20 @@
   <head>
     <meta charset="utf-8">
     <title>RF Harvester Filter</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/rfh-filter.css">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- <script src="./js/jquery-ui.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <script src="./rf-filter1.js"></script> -->
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/rfh-filter.css">
   </head>
   <body>
-    <div class="btn-toolbar" role="toolbar" aria-label="Main Toolbar">
+    <!-- <div class="btn-toolbar" role="toolbar" aria-label="Main Toolbar">
       <div class="btn-group" role="group">
         <button type="button" id="rfhButtonNew" class="btn btn-default" aria-label="New Design">
           <span class="glyphicon glyphicon-file" aria-hidden="false"></span>
@@ -23,18 +32,19 @@
           <span class="glyphicon glyphicon-cog" aria-hidden="false"></span>
         </button>
       </div>
-    </div>
+    </div> -->
     <div class="container">
-      <ul role="tablist" class="nav nav-tabs">
-        <li id="setup-tab-link" class="active"><a href="#setup-tab" role="tab" data-toggle="tab">Setup</a></li>
-        <li id="ztables-tab-link"><a href="#ztables-tab" role="tab" data-toggle="tab">Z Tables</a></li>
-        <li id="plot-tab-link"><a href="#plot-tab" role="tab" data-toggle="tab">Plot</a></li>
-        <li id="lumped-element-tab-link"><a href="#lumped-element-tab" role="tab" data-toggle="tab">Lumped Element</a></li>
+      <ul class="nav nav-tabs" role="tablist">
+        <li id="setup-tab-link" class="nav-item"><a id="setup-tab" class="nav-link active" data-toggle="tab" role="tab" href="#setup">Setup</a></li>
+        <!-- <li id="ztables-tab-link" class="nav-item"><a id="ztables-tab" class="nav-link" data-toggle="tab" role="tab"  href="#ztables">Z Tables</a></li> -->
+        <li id="plot-tab-link" class="nav-item"><a id="plot-tab" class="nav-link" data-toggle="tab" role="tab"  href="#plot">Plot</a></li>
+        <li id="lumped-element-tab-link" class="nav-item"><a id="lumped-element-tab" class="nav-link" data-toggle="tab" role="tab"  href="#lumped-element">Lumped Element</a></li>
       </ul>
       <div class="tab-content">
-        <div id="setup-tab" class="tab-pane active">
-          <h4>Setup</h4>
-          <div style="float:left">
+          <div id="setup" class="tab-pane fade show active" role="tabpanel">
+          <div class="row">
+          <div class="col-md-6">
+            <h4>Setup</h4>
             <form id="settingsForm1">
               <div class="input-group"><span class="input-group-addon settings-edit-box">Z0</span>
                   <input type="text" id="z0Text" data-rfh-validate-type="float" data-rfh-validate-value="1" value="50" class="form-control">
@@ -85,17 +95,23 @@
             </form>
             <button id="silpSynthButton" type="button" class="btn btn-info">Synth Stepped Z</button>
           </div>
-          <div id="filterResults" class="well">
+          <div class="col-md-6">
+            <h4>Output</h4>
+          <div id="filterResults" class="col-md-6">
           </div>
         </div>
-        <div id="ztables-tab" class="tab-pane">
-          <h4>Display Zeven and Zodd Values</h4>
-          <div id="impDataDiv" class="well"></div>
         </div>
-        <div id="plot-tab" class="tab-pane">
-          <h4>Results</h4>
-          <div>
-         <!-- <button type="button" id="rfhButtonPlotSettings" class="btn btn-default" aria-label="Plot Settings" style="float:left"> 
+        </div>
+        <!-- <div id="ztables" class="tab-pane fade" role="tabpanel">
+          <h4>Display Zeven and Zodd Values</h4>
+          <div>Not currently implemented.</div>
+          <div id="impDataDiv" class="well"></div>
+        </div> -->
+        <div id="plot" class="tab-pane fade" role="tabpanel">
+          <div class="row">
+          <div class="col-md-12"><h4>Results</h4></div>
+          <div class="col-md-12">
+         <!-- <button type="button" id="rfhButtonPlotSettings" class="btn btn-default" aria-label="Plot Settings" style="float:left">
           <span class="glyphicon glyphicon-cog" aria-hidden="false"></span>
            </button> -->
           <select id="plotTypeSelect" class="form-control" style="float:left">
@@ -108,78 +124,76 @@
           </select>
           <!-- <button type="button" id="rfhButtonFreezePlot" class="btn btn-default" aria-label="Freeze Plot" style="float:left"><span class="glyphicon glyphicon-pushpin" aria-hidden="false"></span></button> -->
           </div>
-          <div id="dataPlotDiv"></div>
+          <div id="dataPlotDiv" class="col-md-12"></div>
         </div>
-        <div id="lumped-element-tab" class="tab-pane">
-        <h4>Lumped Element Design</h4>
-          <div style="float:left">
-            <form id="leForm1">
-              <select id="leFilterTypeSelect" class="form-control">
-                <option value="lp" selected="selected">Low Pass</option>
-                <option value="bp">Band Pass</option>
-                <option value="bs">Band Stop</option>
-                <option value="hp">High Pass</option>
-              </select>
-              <select id="leResponseTypeSelect" class="form-control">
-                <option value="butterworth" selected="selected">Butterworth</option>
-                <option value="chebyshev">Chebyshev</option>
-                <option value="elliptic">Elliptic</option>
-              </select>
-              <select id="leConfig"class="form-control">
-                <option value="pi" selected="selected">PI</option>
-                <option value="tee">TEE</option>
-              </select>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">Number of Sections</span>
-                <input type="text" id="nSectionsLEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="4" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">Passband Ripple</span>
-                <input type="text" id="rippleLEText" data-rfh-validate-type="float" data-rfh-validate-value="0.001" value=".1" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">F1 (MHz)</span>
-                <input type="text" id="f1LEText" data-rfh-validate-type="float" data-rfh-validate-value="10" value="1000" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">F2 (MHz)</span>
-                <input type="text" id="f2LEText" data-rfh-validate-type="float" data-rfh-validate-value="10" value="2000" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">Z0 (ohms)</span>
-                <input type="text" id="z0LEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="50" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">F3 (MHz)</span>
-                <input type="text" id="f3LEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="3000" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">Required IL (dB)</span>
-                <input type="text" id="minILLEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="30" class="form-control form-control">
-              </div>
-              <div class="input-group"><span class="input-group-addon settings-edit-box">g Coefficients</span>
-                <input type="text" id="gLEText" data-rfh-validate-type="text" data-rfh-validate-value="1" value="0.3714 0.5664 1.0929 1.1194 0.9244" class="form-control form-control">
-              </div>
-            </form>
-            <button id="leCalcButton" type="button" class="btn btn-info">Calculate LC Filter</button>
-            <button id="leSectionsButton" type="button" class="btn btn-info">Calc Min Sections</button>
+      </div>
+        <div id="lumped-element" class="tab-pane fade" role="tabpanel">
+          <div class="row">
+          <div class="col-md-6">
+          <h4>Lumped Element Input</h4>
+            <div style="float:left">
+              <form id="leForm1">
+                <select id="leFilterTypeSelect" class="form-control">
+                  <option value="lp" selected="selected">Low Pass</option>
+                  <option value="bp">Band Pass</option>
+                  <option value="bs">Band Stop</option>
+                  <option value="hp">High Pass</option>
+                </select>
+                <select id="leResponseTypeSelect" class="form-control">
+                  <option value="butterworth" selected="selected">Butterworth</option>
+                  <option value="chebyshev">Chebyshev</option>
+                  <option value="elliptic">Elliptic</option>
+                </select>
+                <select id="leConfig"class="form-control">
+                  <option value="pi" selected="selected">PI</option>
+                  <option value="tee">TEE</option>
+                </select>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">Number of Sections</span>
+                  <input type="text" id="nSectionsLEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="4" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">Passband Ripple</span>
+                  <input type="text" id="rippleLEText" data-rfh-validate-type="float" data-rfh-validate-value="0.001" value=".1" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">F1 (MHz)</span>
+                  <input type="text" id="f1LEText" data-rfh-validate-type="float" data-rfh-validate-value="10" value="1000" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">F2 (MHz)</span>
+                  <input type="text" id="f2LEText" data-rfh-validate-type="float" data-rfh-validate-value="10" value="2000" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">Z0 (ohms)</span>
+                  <input type="text" id="z0LEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="50" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">F3 (MHz)</span>
+                  <input type="text" id="f3LEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="3000" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">Required IL (dB)</span>
+                  <input type="text" id="minILLEText" data-rfh-validate-type="float" data-rfh-validate-value="1" value="30" class="form-control form-control">
+                </div>
+                <div class="input-group"><span class="input-group-addon settings-edit-box">g Coefficients</span>
+                  <input type="text" id="gLEText" data-rfh-validate-type="text" data-rfh-validate-value="1" value="0.3714 0.5664 1.0929 1.1194 0.9244" class="form-control form-control">
+                </div>
+              </form>
+              <button id="leCalcButton" type="button" class="btn btn-info">Calculate LC Filter</button>
+              <button id="leSectionsButton" type="button" class="btn btn-info">Calc Min Sections</button>
+            </div>
+        </div>
+          <div class="col-md-6">
+            <h4>Output</h4>
+          <div id="leResultsDiv"></div>
+        </div>
           </div>
-          <div id="leResultsDiv" class="well">
-
-          </div>
-          <div id="leSchematic">
+          <div id="leSchematic" class="row">
           <svg id="leSVG" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="1200" height="500">
           <g id="leMainGroup" transform="scale(1)"></g></svg>
           </div>
-        </div>
       </div>
-    <!-- <div class="container">
-      <div id="userConsoleDiv" class="well">Application started.</div>
-    </div> -->
-   
-    <div class="container" style="float:left">
+    </div>
+    <div class="row">
      <hr>
       <footer>
-        <p>&copy; Mark Bailly 2017</p>
+        <p>&copy; Mark Bailly 2019</p>
       </footer>
     </div>
-    <script>window.$ = window.jQuery = require('./js/jquery-1.10.2.min.js');</script>
-    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/d3.min.js"></script>
-    <script type="text/javascript" src="./js/renderer.js"></script>
-    <script type="text/javascript" src="./js/rf-filter1.js"></script>
+    <script>require('./renderer.js')</script>
   </body>
 </html>

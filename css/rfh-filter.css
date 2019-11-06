@@ -1,4 +1,4 @@
-#powerSweepDataDiv {
+ #powerSweepDataDiv {
 	float:left;
 	clear:both;
 }
@@ -39,7 +39,7 @@
 }
 #canvasContainer {
 	border: solid 1px #3e3e3e;
-	/*width: 1200px;*/
+
 	height:400px;
 	overflow: scroll;
 }
@@ -61,7 +61,6 @@
 }
 .lineNF {
 	fill: none;
-/*	stroke: steelblue;*/
 	stroke-width: 2px;
 }
 .axis {
@@ -94,7 +93,7 @@
 .tick line {
     opacity: 0.2;
  }
- #userConsoleDiv {
+ /* #userConsoleDiv {
  	padding-top: 10px;
  	height: 100px;
  	overflow: scroll;
@@ -103,7 +102,7 @@
  	width: 200px;
  	height:400px;
  	overflow:scroll;
- }
+ } */
  #impDataDiv {
  	width: 200px;
  	height: 400px;
@@ -113,25 +112,24 @@
  	float: left;
  }
  #leResultsDiv {
- 	margin-left:50px;
- 	width:400px;
- 	height:400px;
+ 	/* margin-left:50px; */
+ 	/* width:400px; */
+ 	height:600px;
  	overflow:scroll;
  }
- #filterResults {
- 	margin-left:50px;
- 	width:400px;
- 	height:400px;
+  #filterResults {
+ 	/* margin-left:50px; */
+ 	/* width:400px;*/
+ 	height:600px;
  	overflow:scroll;
  }
-#setupFilterDiv {
+/* #setupFilterDiv {
  	width:300px;
  	height:300px;
  	float:left;
  }
  #leSchematic {
 	border: solid 1px #3e3e3e;
-	/*width: 1200px;*/
 	height:500px;
 	overflow: scroll;
-}
+} */
