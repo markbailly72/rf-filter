@@ -1,0 +1,137 @@
+#powerSweepDataDiv {
+	float:left;
+	clear:both;
+}
+.cascadeWorkSpace {
+	float:left;
+	border: solid 1px #3e3e3e;
+	width: 150px;
+	padding: 5px;
+}
+.cascadeWorkSpaceOut {
+	float:left;
+	border: solid 1px #3e3e3e;
+	width: 150px;
+	padding: 5px;
+	margin-left: 20px;
+}
+#diycFakeE {
+    cursor:pointer;
+}
+#pmtPlotTooltip01 {
+	position:absolute;
+	display:none;
+}
+#cascadeInputArea {
+	width: 200px;
+}
+#cascadeCanvas {
+	background: #ffffff;
+    border: solid 1px #aaaaaa;
+}
+.settings-edit-box {
+	width: 150px;
+	text-align: left;
+}
+.errorMessage {
+	font-weight: bold;
+	color: #ff0000;
+}
+#canvasContainer {
+	border: solid 1px #3e3e3e;
+	/*width: 1200px;*/
+	height:400px;
+	overflow: scroll;
+}
+#schematicGrid {
+	background: #ffffee;
+}
+.rfhPart {
+	width: 150px;
+	height: 100px;
+}
+.textBox2 {
+	width: 250px;
+	text-align: left;
+}
+.lineP1db {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 2px;
+}
+.lineNF {
+	fill: none;
+/*	stroke: steelblue;*/
+	stroke-width: 2px;
+}
+.axis {
+  font-size: 10px;
+  font-family: Arial;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: gray;
+}
+#plotTypeSelect {
+	width: 200px;
+}
+#plotYAxesText {
+	font-size: 16px;
+	fill: steelblue;
+	font-weight: bolder;
+}
+#plotXAxesText {
+	font-size: 16px;
+	fill: steelblue;
+	font-weight: bolder;
+}
+#plotTitle {
+	font-size: 20px;
+	fill: steelblue;
+	font-weight: bolder;
+}
+.tick line {
+    opacity: 0.2;
+ }
+ #userConsoleDiv {
+ 	padding-top: 10px;
+ 	height: 100px;
+ 	overflow: scroll;
+ }
+ #divFileHolder {
+ 	width: 200px;
+ 	height:400px;
+ 	overflow:scroll;
+ }
+ #impDataDiv {
+ 	width: 200px;
+ 	height: 400px;
+ 	overflow: scroll;
+ }
+ #impTablesDiv {
+ 	float: left;
+ }
+ #leResultsDiv {
+ 	margin-left:50px;
+ 	width:400px;
+ 	height:400px;
+ 	overflow:scroll;
+ }
+ #filterResults {
+ 	margin-left:50px;
+ 	width:400px;
+ 	height:400px;
+ 	overflow:scroll;
+ }
+#setupFilterDiv {
+ 	width:300px;
+ 	height:300px;
+ 	float:left;
+ }
+ #leSchematic {
+	border: solid 1px #3e3e3e;
+	/*width: 1200px;*/
+	height:500px;
+	overflow: scroll;
+}
