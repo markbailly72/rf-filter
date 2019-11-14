@@ -6,37 +6,17 @@
     <title>RF Harvester Filter</title>
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!-- <script src="./js/jquery-ui.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <!-- <script src="./rf-filter1.js"></script> -->
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/rfh-filter.css">
   </head>
   <body>
-    <!-- <div class="btn-toolbar" role="toolbar" aria-label="Main Toolbar">
-      <div class="btn-group" role="group">
-        <button type="button" id="rfhButtonNew" class="btn btn-default" aria-label="New Design">
-          <span class="glyphicon glyphicon-file" aria-hidden="false"></span>
-        </button>
-        <button type="button" id="rfhButtonOpen" class="btn btn-default" aria-label="Open Design">
-          <span class="glyphicon glyphicon-folder-open" aria-hidden="false"></span>
-        </button>
-        <button type="button" id="rfhButtonSave" class="btn btn-default" aria-label="Save Design">
-          <span class="glyphicon glyphicon-floppy-disk" aria-hidden="false"></span>
-        </button>
-        <button type="button" id="rfhButtonSettings" class="btn btn-default" aria-label="Settings">
-          <span class="glyphicon glyphicon-cog" aria-hidden="false"></span>
-        </button>
-      </div>
-    </div> -->
     <div class="container">
       <ul class="nav nav-tabs" role="tablist">
         <li id="setup-tab-link" class="nav-item"><a id="setup-tab" class="nav-link active" data-toggle="tab" role="tab" href="#setup">Setup</a></li>
-        <!-- <li id="ztables-tab-link" class="nav-item"><a id="ztables-tab" class="nav-link" data-toggle="tab" role="tab"  href="#ztables">Z Tables</a></li> -->
         <li id="plot-tab-link" class="nav-item"><a id="plot-tab" class="nav-link" data-toggle="tab" role="tab"  href="#plot">Plot</a></li>
         <li id="lumped-element-tab-link" class="nav-item"><a id="lumped-element-tab" class="nav-link" data-toggle="tab" role="tab"  href="#lumped-element">Lumped Element</a></li>
       </ul>
@@ -102,18 +82,10 @@
         </div>
         </div>
         </div>
-        <!-- <div id="ztables" class="tab-pane fade" role="tabpanel">
-          <h4>Display Zeven and Zodd Values</h4>
-          <div>Not currently implemented.</div>
-          <div id="impDataDiv" class="well"></div>
-        </div> -->
         <div id="plot" class="tab-pane fade" role="tabpanel">
           <div class="row">
           <div class="col-md-12"><h4>Results</h4></div>
           <div class="col-md-12">
-         <!-- <button type="button" id="rfhButtonPlotSettings" class="btn btn-default" aria-label="Plot Settings" style="float:left">
-          <span class="glyphicon glyphicon-cog" aria-hidden="false"></span>
-           </button> -->
           <select id="plotTypeSelect" class="form-control" style="float:left">
             <option value="zeven" selected="selected">Z Even</option>
             <option value="zodd">Z Odd</option>
@@ -122,7 +94,6 @@
              <option value="codd">C Odd</option>
              <option value="bothC">C Even &amp; C Odd</option>
           </select>
-          <!-- <button type="button" id="rfhButtonFreezePlot" class="btn btn-default" aria-label="Freeze Plot" style="float:left"><span class="glyphicon glyphicon-pushpin" aria-hidden="false"></span></button> -->
           </div>
           <div id="dataPlotDiv" class="col-md-12"></div>
         </div>
@@ -190,10 +161,11 @@
     </div>
     <div class="row">
      <hr>
-      <footer>
-        <p>&copy; Mark Bailly 2019</p>
-      </footer>
+      <div class="fixed-bottom">
+        &copy; Mark Bailly 2019
+      </div>
     </div>
+  </div>
     <script>require('./renderer.js')</script>
   </body>
 </html>

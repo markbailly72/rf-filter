@@ -1,6 +1,6 @@
 /*
 This program calculates the LC and C values for a given filter topology.
-The inputs are: z0, f0, bw, and coeffecients. 
+The inputs are: z0, f0, bw, and coeffecients.
 */
 function bsFilter(z0,f1,f2,gk,ac,f3,n,type,config) {
 	var lsr,lsh,csr,csh,reactanceType;
@@ -34,7 +34,7 @@ function bsFilter(z0,f1,f2,gk,ac,f3,n,type,config) {
 				spice = spice + "c"+i+" "+j+" 0 "+csh+"</br>";
 				csh = (csh*1e12).toFixed(2);
 				outputText = outputText+"L"+i+": "+lsh+" nH"+"</br>";
-				outputText = outputText+"C"+i+": "+csh+" pF"+"</br>"; 
+				outputText = outputText+"C"+i+": "+csh+" pF"+"</br>";
 				//reactanceType = "Series LC in Shunt";
 			}
 			else {
@@ -76,7 +76,7 @@ function bsFilter(z0,f1,f2,gk,ac,f3,n,type,config) {
 				spice = spice + "c"+i+" "+j+" 0 "+csh+"</br>";
 				csh = (csh*1e12).toFixed(2);
 				outputText = outputText+"L"+i+": "+lsh+" nH"+"</br>";
-				outputText = outputText+"C"+i+": "+csh+" pF"+"</br>"; 
+				outputText = outputText+"C"+i+": "+csh+" pF"+"</br>";
 			}
 			i++;
 			m++;
@@ -214,7 +214,7 @@ function lpFilter(z0,f1,gk,ac,f3,n,type,config) {
 					outputText = outputText+"C"+i+": "+csh+" pF"+"</br>";
 					i++;
 					k++;
-				
+
 				}
 				else {
 					/*lsr = parseFloat(gk[i]*z0/(2*PI*f0)*1e9).toFixed(2);
@@ -523,7 +523,7 @@ function singleMicrostrip(z0,er,h,w) {
 	var er0 = (er+1)/2+(er-1)/2*1/Math.sqrt(1+12/u);
 	var fu = 6+(2*PI-6)*Math.pow(Math.E,-Math.pow(30.666/u,0.7528));
 	var z0eff = 60/Math.sqrt(er0)*Math.log(fu/u+Math.sqrt(1+Math.pow(2/u,2)));
-	return [z0eff,er0]; 
+	return [z0eff,er0];
 }
 function microstripCap(er,h,w) {
 	let u = w/h;
@@ -541,7 +541,8 @@ function pclFilterZ(fu,fl,z0,g0,g1,loc) {
 	fu = fu*1e6;
 	fl = fl*1e6;
 	//var f1 = 318.35e6;
-	var f0 = (fu+fl)/2;
+//	var f0 = (fu+fl)/2;
+	var f0 = Math.sqrt(fu*fl);
 	var fbw = (fu-fl)/f0;
 	if (loc == 0) {
 		var K = z0/Math.sqrt(PI*fbw/(2*g0*g1));
@@ -630,7 +631,7 @@ function pclFilterW(er,z0,h,s,ze,zo,acc) {
 	var zArray = [];
 	for (let i=0;i<count;i++) {
 		w = isOdd(i) ? wu : wl;
-		erArray = permittivityEvenOdd(er,h,w,s); 
+		erArray = permittivityEvenOdd(er,h,w,s);
 		z0eff = singleMicrostrip(z0,er,h,w)[0];
 		zArray = zEvenOdd(z0eff,er,erArray[0],erArray[1],h,w,s);
 		if (Math.abs(1-zArray[0]/ze) <= acc && Math.abs(1-zArray[1]/zo) <= acc) {
@@ -667,7 +668,7 @@ function idFilterW(er,z0,h,s,ze,zo,acc) {
 	var zArray = [];
 	for (let i=0;i<count;i++) {
 		w = isOdd(i) ? wu : wl;
-		erArray = permittivityEvenOdd(er,h,w,s); 
+		erArray = permittivityEvenOdd(er,h,w,s);
 		z0eff = singleMicrostrip(z0,er,h,w)[0];
 		zArray = zEvenOdd(z0eff,er,erArray[0],erArray[1],h,w,s);
 		if (Math.abs(1-zArray[0]/ze) <= acc && Math.abs(1-zArray[1]/zo) <= acc) {
@@ -706,7 +707,7 @@ function findSgivenW(er,z0,h,w,ze,zo,acc) {
 	//count = 100;
 	for (i=0;i<count;i++) {
 		//w = isOdd(i) ? wu : wl;
-		erArray = permittivityEvenOdd(er,h,w,s); 
+		erArray = permittivityEvenOdd(er,h,w,s);
 		z0eff = singleMicrostrip(z0,er,h,w)[0];
 		zArray = zEvenOdd(z0eff,er,erArray[0],erArray[1],h,w,s);
 		//console.log(...zArray);
@@ -769,12 +770,12 @@ function pclFilterWOLD(er,z0,h,s,ze,zo) {
 	var endWe,endWo;
 	var za = 0;
 	var zb = 0;
-	eree = permittivityEvenOdd(er,h,wu,s)[0]; 
+	eree = permittivityEvenOdd(er,h,wu,s)[0];
 	z0eff = singleMicrostrip(z0,er,h,wu)[0];
 	za = zEvenOdd(z0eff,er,eree,ereo,h,wu,s)[0];
 	while (za < finalZel || za > finalZeu) {
 		if (isOdd(i)) {
-			eree = permittivityEvenOdd(er,h,wu,s)[0]; 
+			eree = permittivityEvenOdd(er,h,wu,s)[0];
 			ereo = permittivityEvenOdd(er,h,wu,s)[1];
 			z0eff = singleMicrostrip(z0,er,h,wu)[0];
 			za = zEvenOdd(z0eff,er,eree,ereo,h,wu,s)[0];
@@ -782,7 +783,7 @@ function pclFilterWOLD(er,z0,h,s,ze,zo) {
 			endWe = wu;
 		}
 		else {
-			eree = permittivityEvenOdd(er,h,wl,s)[0]; 
+			eree = permittivityEvenOdd(er,h,wl,s)[0];
 			ereo = permittivityEvenOdd(er,h,wl,s)[1];
 			z0eff = singleMicrostrip(z0,er,h,wl)[0];
 			za = zEvenOdd(z0eff,er,eree,ereo,h,wl,s)[0];
@@ -798,14 +799,14 @@ function pclFilterWOLD(er,z0,h,s,ze,zo) {
 		if(i >=1000) {
 			za=finalZel;
 			endWe = "NS";
-		}	
+		}
 	}
 	wu = startW;
 	wl = startW;
 	i = 0;
 	while (zb < finalZol || zb > finalZou) {
 		if (isOdd(i)) {
-			eree = permittivityEvenOdd(er,h,wu,s)[0]; 
+			eree = permittivityEvenOdd(er,h,wu,s)[0];
 			ereo = permittivityEvenOdd(er,h,wu,s)[1];
 			z0eff = singleMicrostrip(z0,er,h,wu)[0];
 			zb = zEvenOdd(z0eff,er,eree,ereo,h,wu,s)[1];
@@ -813,7 +814,7 @@ function pclFilterWOLD(er,z0,h,s,ze,zo) {
 			endWo = wu;
 		}
 		else {
-			eree = permittivityEvenOdd(er,h,wl,s)[0]; 
+			eree = permittivityEvenOdd(er,h,wl,s)[0];
 			ereo = permittivityEvenOdd(er,h,wl,s)[1];
 			z0eff = singleMicrostrip(z0,er,h,wl)[0];
 			zb = zEvenOdd(z0eff,er,eree,ereo,h,wl,s)[1];
@@ -829,7 +830,7 @@ function pclFilterWOLD(er,z0,h,s,ze,zo) {
 		if(i >=1000) {
 			zb=finalZol;
 			endWo = "NS";
-		}	
+		}
 	}
 	return [endWe,za,endWo,zb];
 }
@@ -838,7 +839,8 @@ function chebyshevTables(n,Ac) {
 	var tableRow;
 	var gkArray = [];
 	var gn, ak, bk, gk, akPrev, bkPrev, gkPrev, beta, gamma;
-	for (let k=1;k<=n;k++) {
+	var coefficients = Array.from(Array(n+1).keys());
+	coefficients.forEach(function(k) {
 		ak = Math.sin((2*k-1)*PI/(2*n));
 		beta = Math.log(1/Math.tanh(Ac/17.37));
 		gamma = Math.sinh(beta/(2*n));
@@ -856,7 +858,26 @@ function chebyshevTables(n,Ac) {
 		akPrev = ak;
 		bkPrev = bk;
 		gkPrev = gk;
-	}
+	});
+	// for (let k=1;k<=n;k++) {
+	// 	ak = Math.sin((2*k-1)*PI/(2*n));
+	// 	beta = Math.log(1/Math.tanh(Ac/17.37));
+	// 	gamma = Math.sinh(beta/(2*n));
+	// 	bk = Math.pow(gamma,2)+Math.pow(Math.sin(k*PI/n),2);
+	// 	if (k == 1) {
+	// 		gk = parseFloat(2*ak/gamma).toFixed(PRECISION);
+	// 		tableRow = gk;
+	// 		gkArray[k-1] = gk;
+	// 	}
+	// 	else {
+	// 		gk = parseFloat((4*akPrev*ak)/(bkPrev*gkPrev)).toFixed(PRECISION);
+	// 		tableRow = tableRow+","+gk;
+	// 		gkArray[k-1] = gk;
+	// 	}
+	// 	akPrev = ak;
+	// 	bkPrev = bk;
+	// 	gkPrev = gk;
+	// }
 	if (isOdd(n)) {
 		gn = 1.0000.toFixed(PRECISION);
 	}
@@ -869,9 +890,13 @@ function chebyshevTables(n,Ac) {
 }
 function butterworthTables(n) {
 	let gkArray = [];
-	for (let i=1;i <= n;i++) {
-		gkArray.push(2*Math.sin(((2*i-1)*PI)/(2*n)));
-	}
+	var coefficients = Array.from(Array(n+1).keys());
+	coefficients.forEach(function(k) {
+			gkArray.push(2*Math.sin(((2*k-1)*PI)/(2*n)));
+	});
+	// for (let i=1;i <= n;i++) {
+	// 	gkArray.push(2*Math.sin(((2*i-1)*PI)/(2*n)));
+	// }
 	return gkArray;
 }
 function isOdd(num) { return num % 2;}
